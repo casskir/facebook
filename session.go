@@ -146,7 +146,7 @@ func (session *Session) Request(request *http.Request) (res Result, err error) {
 
 	res, err = MakeResult(data)
 	session.addDebugInfo(res, response)
-	session.addUsageInfo(res, response)
+	session.addUsageInfo(res, response.Header)
 
 	if res != nil {
 		err = res.Err()
@@ -404,7 +404,7 @@ func (session *Session) graph(path string, method Method, params Params) (res Re
 
 	if response != nil {
 		session.addDebugInfo(res, response)
-		session.addUsageInfo(res, response)
+		session.addUsageInfo(res, response.Header)
 	}
 
 	if res != nil {
@@ -619,13 +619,12 @@ func (session *Session) addDebugInfo(res Result, response *http.Response) Result
 	return res
 }
 
-func (session *Session) addUsageInfo(res Result, response *http.Response) Result {
-	if res == nil || response == nil {
+func (session *Session) addUsageInfo(res Result, header http.Header) Result {
+	if res == nil || header == nil {
 		return res
 	}
 
 	var usageInfo UsageInfo
-	header := response.Header
 
 	if usage := header.Get("X-App-Usage"); usage != "" {
 		json.Unmarshal([]byte(usage), &usageInfo.App)

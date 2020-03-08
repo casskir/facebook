@@ -48,5 +48,7 @@ func newBatchResult(res Result) (*BatchResult, error) {
 		result.Header.Add(header.Name, header.Value)
 	}
 
+	defaultSession.addUsageInfo(result.Result, result.Header)
+
 	return result, nil
 }
