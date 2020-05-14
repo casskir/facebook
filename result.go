@@ -81,7 +81,7 @@ type DebugInfo struct {
 type UsageInfo struct {
 	App             RateLimiting         `json:"app"`               // HTTP header X-App-Usage.
 	Page            RateLimiting         `json:"page"`              // HTTP header X-Page-Usage.
-	AdAccount       RateLimiting         `json:"ad_account"`        // HTTP header X-Ad-Account-Usage.
+	AdAccount       AdAccountUsage       `json:"ad_account"`        // HTTP header X-Ad-Account-Usage.
 	AdsInsights     AdsInsightsThrottle  `json:"ads_insights"`      // HTTP header x-fb-ads-insights-throttle
 	BusinessUseCase BusinessUseCaseUsage `json:"business_use_case"` // HTTP header x-business-use-case-usage.
 }
